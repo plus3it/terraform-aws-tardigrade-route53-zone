@@ -53,6 +53,8 @@ resource "aws_cloudwatch_log_group" "this" {
 }
 
 data "aws_iam_policy_document" "route53-query-logging-policy" {
+  count = "${var.create_route53_subzone && var.create_route53_query_log ? 1 : 0}"
+
   statement {
     actions = [
       "logs:CreateLogStream",
@@ -87,6 +89,8 @@ resource "aws_route53_query_log" "this" {
 # FIREHOSE CONFIGURATION
 ##################################
 data "aws_iam_policy_document" "assume_role_firehose" {
+  count = "${var.create_route53_subzone && var.create_route53_query_log ? 1 : 0}"
+
   version = "2012-10-17"
 
   statement {
@@ -122,6 +126,8 @@ resource "aws_iam_role" "firehose" {
 }
 
 data "aws_iam_policy_document" "firehose_s3_delivery" {
+  count = "${var.create_route53_subzone && var.create_route53_query_log ? 1 : 0}"
+
   version = "2012-10-17"
 
   statement {
@@ -189,6 +195,8 @@ resource "aws_kinesis_firehose_delivery_stream" "this" {
 ##################################
 
 data "aws_iam_policy_document" "cloudwatch" {
+  count = "${var.create_route53_subzone && var.create_route53_query_log ? 1 : 0}"
+
   statement {
     actions = [
       "firehose:DeleteDeliveryStream",
@@ -209,6 +217,8 @@ resource "aws_iam_policy" "cloudwatch" {
 }
 
 data "aws_iam_policy_document" "assume_role_cloudwatch" {
+  count = "${var.create_route53_subzone && var.create_route53_query_log ? 1 : 0}"
+
   version = "2012-10-17"
 
   statement {
