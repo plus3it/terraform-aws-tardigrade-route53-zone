@@ -19,3 +19,10 @@ Terraform module to create a Route53 subzone
 | subzone\_name | Name of the subzone to create in the parent root zone | string | `""` | no |
 | tags | A map of tags to add to the Route53 zones | map | `<map>` | no |
 
+## Outputs
+
+| Name | Description |
+|------|-------------|
+| public\_zone\_id | The ID of the public Route53 Zone |
+| public\_zone\_name\_servers | List of name servers in the public delegation set |
+
