@@ -6,6 +6,11 @@ provider aws {
   region = "us-east-1"
 }
 
+resource "random_id" "name" {
+  byte_length = 6
+  prefix      = "terraform-aws-route53-querylog-"
+}
+
 module "route53_subzone" {
   source = "../../"
 
