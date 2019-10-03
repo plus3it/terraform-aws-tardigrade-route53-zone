@@ -1,5 +1,6 @@
 variable "create_route53_subzone" {
   description = "Controls whether to create the Route53 Sub-zone"
+  type        = bool
   default     = true
 }
 
@@ -47,6 +48,7 @@ variable "iam_role_name_firehose_prefix" {
 
 variable "create_route53_query_log" {
   description = "Controls whether to create the Route53 Query Logging configuration"
+  type        = bool
   default     = false
 }
 
