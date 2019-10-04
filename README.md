@@ -6,8 +6,8 @@ Terraform module to create Route53 subzone and and setup delegation for that sub
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
-| create\_route53\_query\_log | Controls whether to create the Route53 Query Logging configuration | string | `"false"` | no |
-| create\_route53\_subzone | Controls whether to create the Route53 Sub-zone | string | `"true"` | no |
+| create\_route53\_query\_log | Controls whether to create the Route53 Query Logging configuration | bool | `"false"` | no |
+| create\_route53\_subzone | Controls whether to create the Route53 Sub-zone | bool | `"true"` | no |
 | iam\_role\_arn\_cloudwatch | IAM Role ARN for Cloudwatch service permissions | string | `"null"` | no |
 | iam\_role\_arn\_firehose | IAM Role ARN for Firehose service permissions | string | `"null"` | no |
 | iam\_role\_name\_cloudwatch\_prefix | IAM Role name for CloudWatch Logs service permissions | string | `"service_cloudwatch_target_firehose"` | no |
