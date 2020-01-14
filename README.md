@@ -13,7 +13,7 @@ Terraform module to create Route53 subzone and and setup delegation for that sub
 | iam\_role\_name\_cloudwatch\_prefix | IAM Role name for CloudWatch Logs service permissions | string | `"service_cloudwatch_target_firehose"` | no |
 | iam\_role\_name\_firehose\_prefix | IAM Role name for Kinesis Firehose service permissions | string | `"service_firehose_s3_delivery"` | no |
 | root\_zone\_id | Zone ID of the parent zone; delegation records for the subzone will be created here | string | `"null"` | no |
-| route53\_query\_log\_bucket | Sets the destination bucket for Route53 Query Logs delivered by Kinesis Firehose. Required if `create_route53_query_log` is set to `true` | string | `"null"` | no |
+| route53\_query\_log\_bucket | Sets the destination bucket for Route53 Query Logs delivered by Kinesis Firehose. Required if `create\_route53\_query\_log` is set to `true` | string | `"null"` | no |
 | route53\_query\_log\_retention | Specifies the number of days you want to retain log events in the specified log group. | string | `"7"` | no |
 | subzone\_name | Name of the subzone to create in the parent root zone | string | `"null"` | no |
 | tags | A map of tags to add to the Route53 zones | map(string) | `<map>` | no |
