@@ -63,3 +63,9 @@ variable "route53_query_log_bucket" {
   type        = string
   default     = null
 }
+
+variable "route53_query_log_bucket_kms_key" {
+  description = "ARN of the KMS Key ID or Alias associated with bucket encryption of `route53_query_log_bucket`. Required if bucket is encrypted and `iam_role_arn_firehose` is `null`"
+  type        = string
+  default     = null
+}
