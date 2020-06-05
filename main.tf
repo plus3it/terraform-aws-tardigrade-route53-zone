@@ -192,7 +192,6 @@ data "aws_iam_policy_document" "firehose_s3_delivery_kms" {
     effect = "Allow"
 
     actions = [
-      "kms:Decrypt",
       "kms:GenerateDataKey",
     ]
 
