@@ -28,8 +28,8 @@ module "route53_subzone" {
   source = "../../"
 
   providers = {
-    aws    = "aws"
-    aws.ns = "aws"
+    aws    = aws
+    aws.ns = aws
   }
 
   create_route53_subzone   = true
