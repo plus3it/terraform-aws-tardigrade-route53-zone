@@ -204,7 +204,7 @@ data "aws_iam_policy_document" "firehose_s3_delivery_kms" {
       variable = "kms:ViaService"
 
       values = [
-        "s3.${data.aws_partition.current.partition}.amazonaws.com"
+        "s3.${data.aws_region.current.name}.amazonaws.com"
       ]
     }
 
