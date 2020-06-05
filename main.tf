@@ -182,6 +182,57 @@ resource "aws_iam_role_policy_attachment" "firehose" {
   policy_arn = aws_iam_policy.firehose[0].arn
 }
 
+data "aws_iam_policy_document" "firehose_s3_delivery_kms" {
+  count = var.create_route53_subzone && var.create_route53_query_log && local.iam_role_create_firehose && var.route53_query_log_bucket_kms_key != null ? 1 : 0
+
+  version = "2012-10-17"
+
+  statement {
+    sid    = "KmsActions"
+    effect = "Allow"
+
+    actions = [
+      "kms:GenerateDataKey",
+    ]
+
+    resources = [
+      var.route53_query_log_bucket_kms_key
+    ]
+
+    condition {
+      test     = "StringEquals"
+      variable = "kms:ViaService"
+
+      values = [
+        "s3.${data.aws_partition.current.partition}.amazonaws.com"
+      ]
+    }
+
+    condition {
+      test     = "StringLike"
+      variable = "kms:EncryptionContext:aws:s3:arn"
+
+      values = [
+        "arn:aws:s3:::${var.route53_query_log_bucket}/*"
+      ]
+    }
+  }
+}
+
+resource "aws_iam_policy" "firehose_kms" {
+  count = var.create_route53_subzone && var.create_route53_query_log && local.iam_role_create_firehose && var.route53_query_log_bucket_kms_key != null ? 1 : 0
+
+  name   = "${aws_iam_role.firehose[0].name}-kms"
+  policy = data.aws_iam_policy_document.firehose_s3_delivery_kms[0].json
+}
+
+resource "aws_iam_role_policy_attachment" "firehose_kms" {
+  count = var.create_route53_subzone && var.create_route53_query_log && local.iam_role_create_firehose && var.route53_query_log_bucket_kms_key != null ? 1 : 0
+
+  role       = aws_iam_role.firehose[0].name
+  policy_arn = aws_iam_policy.firehose_kms[0].arn
+}
+
 resource "aws_kinesis_firehose_delivery_stream" "this" {
   count = var.create_route53_subzone && var.create_route53_query_log ? 1 : 0
 
