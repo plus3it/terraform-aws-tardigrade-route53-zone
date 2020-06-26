@@ -1,0 +1,36 @@
+{
+    "Statement": [
+        {
+            "Action": "s3:GetBucketAcl",
+            "Condition": {
+                "Bool": {
+                    "aws:ViaAWSService": "true"
+                }
+            },
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:${partition}:iam::${account_id}:root"
+            },
+            "Resource": "arn:${partition}:s3:::${bucket}",
+            "Sid": "AWSLogDeliveryAclCheck"
+        },
+        {
+            "Action": "s3:PutObject",
+            "Condition": {
+                "Bool": {
+                    "aws:ViaAWSService": "true"
+                },
+                "StringEquals": {
+                    "s3:x-amz-acl": "bucket-owner-full-control"
+                }
+            },
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:${partition}:iam::${account_id}:root"
+            },
+            "Resource": "arn:${partition}:s3:::${bucket}/*",
+            "Sid": "AWSLogDeliveryWrite"
+        }
+    ],
+    "Version": "2012-10-17"
+}
