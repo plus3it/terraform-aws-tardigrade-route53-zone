@@ -12,33 +12,30 @@ Terraform module to create Route53 subzone and and setup delegation for that sub
 
 ## Providers
 
-| Name | Version |
-|------|---------|
-| aws | n/a |
-| aws.ns | n/a |
+No provider.
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| name | Name of the zone | `string` | n/a | yes |
+| create\_route53\_delegation | Controls whether to create Route53 delegation records | `bool` | `false` | no |
 | create\_route53\_query\_log | Controls whether to create the Route53 Query Logging configuration | `bool` | `false` | no |
-| create\_route53\_subzone | Controls whether to create the Route53 Sub-zone | `bool` | `true` | no |
+| create\_route53\_zone | Controls whether to create the Route53 zone | `bool` | `true` | no |
 | iam\_role\_arn\_cloudwatch | IAM Role ARN for Cloudwatch service permissions | `string` | `null` | no |
 | iam\_role\_arn\_firehose | IAM Role ARN for Firehose service permissions | `string` | `null` | no |
-| iam\_role\_name\_cloudwatch\_prefix | IAM Role name for CloudWatch Logs service permissions | `string` | `"service_cloudwatch_target_firehose"` | no |
-| iam\_role\_name\_firehose\_prefix | IAM Role name for Kinesis Firehose service permissions | `string` | `"service_firehose_s3_delivery"` | no |
-| root\_zone\_id | Zone ID of the parent zone; delegation records for the subzone will be created here | `string` | `null` | no |
-| route53\_query\_log\_bucket | Sets the destination bucket for Route53 Query Logs delivered by Kinesis Firehose. Required if `create_route53_query_log` is set to `true` | `string` | `null` | no |
-| route53\_query\_log\_bucket\_kms\_key | ARN of the KMS Key ID or Alias associated with bucket encryption of `route53_query_log_bucket`. Required if bucket is encrypted and `iam_role_arn_firehose` is `null` | `string` | `null` | no |
-| route53\_query\_log\_retention | Specifies the number of days you want to retain log events in the specified log group. | `string` | `"7"` | no |
-| subzone\_name | Name of the subzone to create in the parent root zone | `string` | `null` | no |
-| tags | A map of tags to add to the Route53 zones | `map(string)` | `{}` | no |
+| ns\_zone\_id | Zone ID of the name server zone; delegation records for the sub-zone will be created here | `string` | `null` | no |
+| query\_log\_bucket | Sets the destination bucket for Route53 Query Logs delivered by Kinesis Firehose | `string` | `null` | no |
+| query\_log\_bucket\_kms\_key | ARN of the KMS Key ID or Alias associated with bucket encryption of `route53_query_log_bucket`. Required if bucket is encrypted and `iam_role_arn_firehose` is `null` | `string` | `null` | no |
+| query\_log\_retention | Specifies the number of days you want to retain log events in the CloudWatch log group. | `number` | `7` | no |
+| tags | A map of tags to add to the Route53 zone and other resources | `map(string)` | `{}` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| public\_zone\_id | The ID of the public Route53 Zone |
-| public\_zone\_name\_servers | List of name servers in the public delegation set |
+| id | ID of the Route53 zone |
+| name | Name of the Route53 zone |
+| name\_servers | List of name servers for the zone |
 
 <!-- END TFDOCS -->

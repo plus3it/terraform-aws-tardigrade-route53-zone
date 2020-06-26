@@ -1,11 +1,14 @@
-# Route53
-output "public_zone_id" {
-  description = "The ID of the public Route53 Zone"
-  value       = join("", aws_route53_zone.public.*.zone_id)
+output id {
+  description = "ID of the Route53 zone"
+  value       = length(module.zone) > 0 ? module.zone.id : null
 }
 
-output "public_zone_name_servers" {
-  description = "List of name servers in the public delegation set"
-  value       = flatten(aws_route53_zone.public.*.name_servers)
+output name {
+  description = "Name of the Route53 zone"
+  value       = length(module.zone) > 0 ? module.zone.name : null
 }
 
+output name_servers {
+  description = "List of name servers for the zone"
+  value       = length(module.zone) > 0 ? module.zone.name_servers : null
+}
