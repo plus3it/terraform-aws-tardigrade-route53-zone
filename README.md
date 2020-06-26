@@ -19,12 +19,12 @@ No provider.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | name | Name of the zone | `string` | n/a | yes |
-| create\_route53\_delegation | Controls whether to create Route53 delegation records | `bool` | `false` | no |
-| create\_route53\_query\_log | Controls whether to create the Route53 Query Logging configuration | `bool` | `false` | no |
+| create\_route53\_delegation | Controls whether to create Route53 delegation records in the `ns_zone_id`. Provider `aws.ns` is used to create the records | `bool` | `false` | no |
+| create\_route53\_query\_log | Controls whether to create a Route53 query log configuration | `bool` | `false` | no |
 | create\_route53\_zone | Controls whether to create the Route53 zone | `bool` | `true` | no |
 | iam\_role\_arn\_cloudwatch | IAM Role ARN for Cloudwatch service permissions | `string` | `null` | no |
 | iam\_role\_arn\_firehose | IAM Role ARN for Firehose service permissions | `string` | `null` | no |
-| ns\_zone\_id | Zone ID of the name server zone; delegation records for the sub-zone will be created here | `string` | `null` | no |
+| ns\_zone\_id | Zone ID of the name server zone. Delegation records for the sub-zone will be created here. Provider `aws.ns` is used to create the records | `string` | `null` | no |
 | query\_log\_bucket | Sets the destination bucket for Route53 Query Logs delivered by Kinesis Firehose | `string` | `null` | no |
 | query\_log\_bucket\_kms\_key | ARN of the KMS Key ID or Alias associated with bucket encryption of `route53_query_log_bucket`. Required if bucket is encrypted and `iam_role_arn_firehose` is `null` | `string` | `null` | no |
 | query\_log\_retention | Specifies the number of days you want to retain log events in the CloudWatch log group. | `number` | `7` | no |
