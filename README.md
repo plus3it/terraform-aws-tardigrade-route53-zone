@@ -1,7 +1,14 @@
 # terraform-aws-tardigrade-route53-subzone
 
-Terraform module to create Route53 subzone and and setup delegation for that subzone. This module assumes that you already have a Route53 hosted zone and so this module will simply setup a subzone of that parent zone. The module is also capable of setting up query logging for that subzone but that is disabled by default. If you would like the query logging to be enabled, set the variable `create_route53_query_log` to `true`
+This terraform module manages a Route53 zone, optionally including the query
+log configuration, and the name server delegation record if it is a "subzone."
 
+In order to support cross-account delegations, this module requires two aws
+providers. The default `aws` provider will manage the Route53 zone, and the
+aliased `aws.ns` provider with credentials to `ns_zone_id` will manage the
+delegation records. You must pass both the `aws` and `aws.ns` providers even
+if you are not using the subzone delegation option, in which case you can
+simply pass the same provider to both `aws` and `aws.ns`.
 
 <!-- BEGIN TFDOCS -->
 ## Requirements
