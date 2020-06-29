@@ -1,4 +1,4 @@
-# terraform-aws-tardigrade-route53-subzone
+# terraform-aws-tardigrade-route53-zone
 
 This terraform module manages a Route53 zone, optionally including the query
 log configuration, and the name server delegation record if it is a "subzone."
