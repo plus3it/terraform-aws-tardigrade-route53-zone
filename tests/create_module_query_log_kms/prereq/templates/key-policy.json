@@ -1,0 +1,35 @@
+{
+    "Id": "Key policy for Route53 query log encryption",
+    "Statement": [
+        {
+            "Action": "kms:*",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:${partition}:iam::${account_id}:root"
+            },
+            "Resource": "*",
+            "Sid": "Enable IAM User Permissions"
+        },
+        {
+            "Action": [
+                "kms:Encrypt",
+                "kms:GenerateDataKey"
+            ],
+            "Condition": {
+                "StringEquals": {
+                    "kms:ViaService": "s3.${region}.amazonaws.com"
+                },
+                "StringLike": {
+                    "kms:EncryptionContext:aws:s3:arn": "arn:${partition}:s3:::${bucket}/*"
+                }
+            },
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "*"
+            },
+            "Resource": "*",
+            "Sid": "Enable s3 service to encrypt query logs"
+        }
+    ],
+    "Version": "2012-10-17"
+}

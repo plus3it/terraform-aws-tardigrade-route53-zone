@@ -10,9 +10,7 @@
 
 ## Providers
 
-| Name | Version |
-|------|---------|
-| random | n/a |
+No provider.
 
 ## Inputs
 
