@@ -11,7 +11,6 @@ module "zone" {
   }
 
   create_route53_query_log = true
-  create_route53_zone      = true
 
   name                     = "${random_string.id.result}.com"
   query_log_bucket         = data.terraform_remote_state.prereq.outputs.bucket["bucket"].id

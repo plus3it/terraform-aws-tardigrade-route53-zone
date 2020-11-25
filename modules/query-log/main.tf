@@ -1,26 +1,20 @@
-provider aws {}
-
 ##################################
 # ROUTE53 LOGGING CONFIGURATION
 ##################################
 
 resource aws_cloudwatch_log_group this {
-  count = var.create_route53_query_log ? 1 : 0
-
   name              = "/aws/route53/${var.zone_id}"
   retention_in_days = var.query_log_retention
 }
 
 data aws_iam_policy_document cloudwatch {
-  count = var.create_route53_query_log ? 1 : 0
-
   statement {
     actions = [
       "logs:CreateLogStream",
       "logs:PutLogEvents",
     ]
 
-    resources = ["arn:${data.aws_partition.current[0].partition}:logs:*:*:log-group:/aws/route53/${var.zone_id}:*"]
+    resources = ["arn:${data.aws_partition.current.partition}:logs:*:*:log-group:/aws/route53/${var.zone_id}:*"]
 
     principals {
       identifiers = ["route53.amazonaws.com"]
@@ -30,17 +24,14 @@ data aws_iam_policy_document cloudwatch {
 }
 
 resource aws_cloudwatch_log_resource_policy this {
-  count = var.create_route53_query_log ? 1 : 0
-
-  policy_document = data.aws_iam_policy_document.cloudwatch[0].json
+  policy_document = data.aws_iam_policy_document.cloudwatch.json
   policy_name     = "query-log-cloudwatch-${var.zone_id}"
 }
 
 resource aws_route53_query_log this {
-  count      = var.create_route53_query_log ? 1 : 0
   depends_on = [aws_cloudwatch_log_resource_policy.this]
 
-  cloudwatch_log_group_arn = aws_cloudwatch_log_group.this[0].arn
+  cloudwatch_log_group_arn = aws_cloudwatch_log_group.this.arn
   zone_id                  = var.zone_id
 }
 
@@ -49,7 +40,6 @@ resource aws_route53_query_log this {
 ##################################
 
 data aws_iam_policy_document firehose_assume_role {
-  count = var.create_route53_query_log ? 1 : 0
 
   version = "2012-10-17"
 
@@ -71,22 +61,21 @@ data aws_iam_policy_document firehose_assume_role {
       variable = "sts:ExternalId"
 
       values = [
-        data.aws_caller_identity.current[0].account_id,
+        data.aws_caller_identity.current.account_id,
       ]
     }
   }
 }
 
 resource aws_iam_role firehose {
-  count = var.create_route53_query_log && local.create_iam_role_firehose ? 1 : 0
+  count = local.create_iam_role_firehose ? 1 : 0
 
-  assume_role_policy = data.aws_iam_policy_document.firehose_assume_role[0].json
+  assume_role_policy = data.aws_iam_policy_document.firehose_assume_role.json
   name               = "query-log-firehose-${var.zone_id}"
   tags               = var.tags
 }
 
 data aws_iam_policy_document firehose {
-  count = var.create_route53_query_log ? 1 : 0
 
   version = "2012-10-17"
 
@@ -102,7 +91,7 @@ data aws_iam_policy_document firehose {
     ]
 
     resources = [
-      "arn:${data.aws_partition.current[0].partition}:s3:::${var.query_log_bucket}",
+      "arn:${data.aws_partition.current.partition}:s3:::${var.query_log_bucket}",
     ]
   }
 
@@ -117,27 +106,27 @@ data aws_iam_policy_document firehose {
     ]
 
     resources = [
-      "arn:${data.aws_partition.current[0].partition}:s3:::${var.query_log_bucket}/*",
+      "arn:${data.aws_partition.current.partition}:s3:::${var.query_log_bucket}/*",
     ]
   }
 }
 
 resource aws_iam_policy firehose {
-  count = var.create_route53_query_log && local.create_iam_role_firehose ? 1 : 0
+  count = local.create_iam_role_firehose ? 1 : 0
 
   name   = aws_iam_role.firehose[0].name
-  policy = data.aws_iam_policy_document.firehose[0].json
+  policy = data.aws_iam_policy_document.firehose.json
 }
 
 resource aws_iam_role_policy_attachment firehose {
-  count = var.create_route53_query_log && local.create_iam_role_firehose ? 1 : 0
+  count = local.create_iam_role_firehose ? 1 : 0
 
   policy_arn = aws_iam_policy.firehose[0].arn
   role       = aws_iam_role.firehose[0].name
 }
 
 data aws_iam_policy_document firehose_kms {
-  count = var.create_route53_query_log && local.create_iam_role_firehose && var.query_log_bucket_kms_key != null ? 1 : 0
+  count = local.create_iam_role_firehose && var.query_log_bucket_kms_key != null ? 1 : 0
 
   version = "2012-10-17"
 
@@ -158,7 +147,7 @@ data aws_iam_policy_document firehose_kms {
       variable = "kms:ViaService"
 
       values = [
-        "s3.${data.aws_region.current[0].name}.amazonaws.com"
+        "s3.${data.aws_region.current.name}.amazonaws.com"
       ]
     }
 
@@ -174,30 +163,28 @@ data aws_iam_policy_document firehose_kms {
 }
 
 resource aws_iam_policy firehose_kms {
-  count = var.create_route53_query_log && local.create_iam_role_firehose && var.query_log_bucket_kms_key != null ? 1 : 0
+  count = local.create_iam_role_firehose && var.query_log_bucket_kms_key != null ? 1 : 0
 
   name   = "${aws_iam_role.firehose[0].name}-kms"
   policy = data.aws_iam_policy_document.firehose_kms[0].json
 }
 
 resource aws_iam_role_policy_attachment firehose_kms {
-  count = var.create_route53_query_log && local.create_iam_role_firehose && var.query_log_bucket_kms_key != null ? 1 : 0
+  count = local.create_iam_role_firehose && var.query_log_bucket_kms_key != null ? 1 : 0
 
   policy_arn = aws_iam_policy.firehose_kms[0].arn
   role       = aws_iam_role.firehose[0].name
 }
 
 resource aws_kinesis_firehose_delivery_stream this {
-  count = var.create_route53_query_log ? 1 : 0
-
   destination = "extended_s3"
   name        = "query-log-stream-${var.zone_id}"
   tags        = var.tags
 
   extended_s3_configuration {
     role_arn   = local.iam_role_arn_firehose
-    bucket_arn = "arn:${data.aws_partition.current[0].partition}:s3:::${var.query_log_bucket}"
-    prefix     = "AWSLogs/${data.aws_caller_identity.current[0].account_id}/route53querylogs/${data.aws_region.current[0].name}/"
+    bucket_arn = "arn:${data.aws_partition.current.partition}:s3:::${var.query_log_bucket}"
+    prefix     = "AWSLogs/${data.aws_caller_identity.current.account_id}/route53querylogs/${data.aws_region.current.name}/"
   }
 }
 
@@ -206,8 +193,6 @@ resource aws_kinesis_firehose_delivery_stream this {
 #####################################
 
 data aws_iam_policy_document subscription {
-  count = var.create_route53_query_log ? 1 : 0
-
   statement {
     actions = [
       "firehose:DeleteDeliveryStream",
@@ -216,19 +201,18 @@ data aws_iam_policy_document subscription {
       "firehose:UpdateDestination",
     ]
 
-    resources = [aws_kinesis_firehose_delivery_stream.this[0].arn]
+    resources = [aws_kinesis_firehose_delivery_stream.this.arn]
   }
 }
 
 resource aws_iam_policy subscription {
-  count = var.create_route53_query_log && local.create_iam_role_cloudwatch ? 1 : 0
+  count = local.create_iam_role_cloudwatch ? 1 : 0
 
   name   = "query-log-cloudwatch-${var.zone_id}"
-  policy = data.aws_iam_policy_document.subscription[0].json
+  policy = data.aws_iam_policy_document.subscription.json
 }
 
 data aws_iam_policy_document cloudwatch_assume_role {
-  count = var.create_route53_query_log ? 1 : 0
 
   version = "2012-10-17"
 
@@ -241,52 +225,44 @@ data aws_iam_policy_document cloudwatch_assume_role {
 
     principals {
       type        = "Service"
-      identifiers = ["logs.${data.aws_region.current[0].name}.amazonaws.com"]
+      identifiers = ["logs.${data.aws_region.current.name}.amazonaws.com"]
     }
   }
 }
 
 resource aws_iam_role subscription {
-  count = var.create_route53_query_log && local.create_iam_role_cloudwatch ? 1 : 0
+  count = local.create_iam_role_cloudwatch ? 1 : 0
 
-  assume_role_policy = data.aws_iam_policy_document.cloudwatch_assume_role[0].json
+  assume_role_policy = data.aws_iam_policy_document.cloudwatch_assume_role.json
   name               = "query-log-subscription-${var.zone_id}"
   tags               = var.tags
 }
 
 resource aws_iam_role_policy_attachment subscription {
-  count = var.create_route53_query_log && local.create_iam_role_cloudwatch ? 1 : 0
+  count = local.create_iam_role_cloudwatch ? 1 : 0
 
   role       = aws_iam_role.subscription[0].name
   policy_arn = aws_iam_policy.subscription[0].arn
 }
 
 resource aws_cloudwatch_log_subscription_filter this {
-  count = var.create_route53_query_log ? 1 : 0
-
   name           = "query-log-subscription-${var.zone_id}"
   role_arn       = local.iam_role_arn_cloudwatch
-  log_group_name = aws_cloudwatch_log_group.this[0].name
+  log_group_name = aws_cloudwatch_log_group.this.name
   filter_pattern = ""
 
-  destination_arn = aws_kinesis_firehose_delivery_stream.this[0].arn
+  destination_arn = aws_kinesis_firehose_delivery_stream.this.arn
 }
 
 ##################################
 # Data and locals
 ##################################
 
-data aws_partition current {
-  count = var.create_route53_query_log ? 1 : 0
-}
+data aws_partition current {}
 
-data aws_caller_identity current {
-  count = var.create_route53_query_log ? 1 : 0
-}
+data aws_caller_identity current {}
 
-data aws_region current {
-  count = var.create_route53_query_log ? 1 : 0
-}
+data aws_region current {}
 
 locals {
   create_iam_role_cloudwatch = var.iam_role_arn_cloudwatch == null

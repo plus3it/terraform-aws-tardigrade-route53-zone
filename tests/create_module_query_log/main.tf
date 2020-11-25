@@ -16,8 +16,6 @@ module "query_log" {
     aws = aws
   }
 
-  create_route53_query_log = true
-
   query_log_bucket = data.terraform_remote_state.prereq.outputs.bucket.id
   zone_id          = data.terraform_remote_state.prereq.outputs.route53_zone.id
 

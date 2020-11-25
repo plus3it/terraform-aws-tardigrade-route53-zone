@@ -35,15 +35,13 @@ module "kms" {
 }
 
 module "bucket" {
-  source = "git::https://github.com/plus3it/terraform-aws-tardigrade-s3-bucket.git?ref=2.0.0"
+  source = "git::https://github.com/plus3it/terraform-aws-tardigrade-s3-bucket.git?ref=4.2.0"
 
   providers = {
     aws = aws
   }
 
-  create_bucket = true
   bucket        = local.id
-  region        = data.aws_region.this.name
   force_destroy = true
   policy = templatefile(
     "${path.module}/templates/bucket-policy.json",

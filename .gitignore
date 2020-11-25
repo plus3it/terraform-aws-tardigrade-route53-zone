@@ -19,5 +19,7 @@ tardigrade-ci/
 .git/
 
 # terratest
-go.mod
-go.sum
+tests/go.*
+
+# os x
+.DS_Store

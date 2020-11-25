@@ -9,8 +9,6 @@ module delegation {
     aws = aws
   }
 
-  create_route53_delegation = true
-
   name         = module.sub_zone.name
   name_servers = module.sub_zone.name_servers
   ns_zone_id   = module.ns_zone.id
@@ -22,8 +20,6 @@ module sub_zone {
   providers = {
     aws = aws
   }
-
-  create_route53_zone = true
 
   name = "${random_string.sub_zone.result}.${random_string.ns_zone.result}.com"
 
@@ -38,8 +34,6 @@ module ns_zone {
   providers = {
     aws = aws
   }
-
-  create_route53_zone = true
 
   name = "${random_string.ns_zone.result}.com"
 

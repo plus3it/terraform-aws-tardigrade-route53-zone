@@ -10,12 +10,6 @@ variable create_route53_query_log {
   default     = false
 }
 
-variable create_route53_zone {
-  description = "Controls whether to create the Route53 zone"
-  type        = bool
-  default     = true
-}
-
 variable iam_role_arn_cloudwatch {
   description = "IAM Role ARN for Cloudwatch service permissions"
   type        = string
