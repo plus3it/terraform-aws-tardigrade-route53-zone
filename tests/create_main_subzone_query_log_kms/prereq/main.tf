@@ -1,11 +1,11 @@
-provider aws {
+provider "aws" {
   region = "us-east-1"
 }
 
 locals {
   # this id cannot use a random_string resource id because the kms module uses
   # for_each on the kms keys object
-  id = "tardigrade-test-r53-query-logs"
+  id = "tardigrade-test-r53-query-logs-${var.test_id}"
 
   keys = [
     {
@@ -73,3 +73,5 @@ output "bucket" {
 output "kms" {
   value = module.kms
 }
+
+variable "test_id" {}
