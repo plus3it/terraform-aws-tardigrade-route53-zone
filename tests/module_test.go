@@ -7,7 +7,6 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/gruntwork-io/terratest/modules/random"
 	"github.com/gruntwork-io/terratest/modules/terraform"
 )
 
@@ -19,11 +18,6 @@ func TestModule(t *testing.T) {
 	}
 
 	for _, f := range files {
-		uniqueID := strings.ToLower(random.UniqueId())
-		envVars := map[string]string{
-			"TF_VAR_test_id": uniqueID,
-		}
-
 		// look for directories with test cases in it
 		if f.IsDir() && f.Name() != "vendor" {
 			tfFiles, tfErr := ioutil.ReadDir(f.Name())
@@ -47,13 +41,13 @@ func TestModule(t *testing.T) {
 					// check if a prereq directory exists
 					prereqDir := f.Name() + "/prereq/"
 					if _, err := os.Stat(prereqDir); err == nil {
-						prereqOptions := createTerraformOptions(prereqDir, envVars)
+						prereqOptions := createTerraformOptions(prereqDir)
 						defer terraform.Destroy(t, prereqOptions)
 						terraform.InitAndApply(t, prereqOptions)
 					}
 
 					// run terraform code for test case
-					terraformOptions := createTerraformOptions(f.Name(), envVars)
+					terraformOptions := createTerraformOptions(f.Name())
 					defer terraform.Destroy(t, terraformOptions)
 					terraform.InitAndApply(t, terraformOptions)
 				})
@@ -62,11 +56,10 @@ func TestModule(t *testing.T) {
 	}
 }
 
-func createTerraformOptions(directory string, envVars map[string]string) *terraform.Options {
+func createTerraformOptions(directory string) *terraform.Options {
 	terraformOptions := &terraform.Options{
 		TerraformDir: directory,
 		NoColor:      true,
-		EnvVars:      envVars,
 	}
 
 	return terraformOptions
