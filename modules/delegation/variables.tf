@@ -1,8 +1,3 @@
-variable create_route53_delegation {
-  description = "Controls whether to create Route53 delegation records"
-  type        = bool
-}
-
 variable name {
   description = "Name of the sub-zone"
   type        = string

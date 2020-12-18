@@ -1,8 +1,3 @@
-variable create_route53_query_log {
-  description = "Controls whether to create the Route53 Query Logging configuration"
-  type        = bool
-}
-
 variable iam_role_arn_cloudwatch {
   description = "IAM Role ARN for Cloudwatch service permissions"
   type        = string

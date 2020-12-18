@@ -12,7 +12,6 @@ module "zone" {
 
   create_route53_delegation = true
   create_route53_query_log  = true
-  create_route53_zone       = true
 
   name             = "${random_string.sub_zone.result}.${random_string.ns_zone.result}.com"
   ns_zone_id       = module.ns_zone.id
@@ -25,8 +24,6 @@ module "ns_zone" {
   providers = {
     aws = aws
   }
-
-  create_route53_zone = true
 
   name = "${random_string.ns_zone.result}.com"
 

@@ -15,7 +15,7 @@ simply pass the same provider to both `aws` and `aws.ns`.
 
 | Name | Version |
 |------|---------|
-| terraform | >= 0.12 |
+| terraform | >= 0.13 |
 
 ## Providers
 
@@ -28,7 +28,6 @@ No provider.
 | name | Name of the zone | `string` | n/a | yes |
 | create\_route53\_delegation | Controls whether to create Route53 delegation records in the `ns_zone_id`. Provider `aws.ns` is used to create the records | `bool` | `false` | no |
 | create\_route53\_query\_log | Controls whether to create a Route53 query log configuration | `bool` | `false` | no |
-| create\_route53\_zone | Controls whether to create the Route53 zone | `bool` | `true` | no |
 | iam\_role\_arn\_cloudwatch | IAM Role ARN for Cloudwatch service permissions | `string` | `null` | no |
 | iam\_role\_arn\_firehose | IAM Role ARN for Firehose service permissions | `string` | `null` | no |
 | ns\_zone\_id | Zone ID of the name server zone. Delegation records for the sub-zone will be created here. Provider `aws.ns` is used to create the records | `string` | `null` | no |

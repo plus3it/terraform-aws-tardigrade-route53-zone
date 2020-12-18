@@ -17,8 +17,6 @@ module "zone" {
     aws.ns = aws
   }
 
-  create_route53_zone = true
-
   name = "${random_string.id.result}.com"
 
   tags = {

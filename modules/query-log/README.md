@@ -17,7 +17,6 @@ No requirements.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| create\_route53\_query\_log | Controls whether to create the Route53 Query Logging configuration | `bool` | n/a | yes |
 | query\_log\_bucket | Sets the destination bucket for Route53 Query Logs delivered by Kinesis Firehose | `string` | n/a | yes |
 | zone\_id | ID of the Route53 zone to configure for query logging | `string` | n/a | yes |
 | iam\_role\_arn\_cloudwatch | IAM Role ARN for Cloudwatch service permissions | `string` | `null` | no |

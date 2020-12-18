@@ -9,8 +9,6 @@ module "query_log" {
     aws = aws
   }
 
-  create_route53_query_log = true
-
   query_log_bucket         = data.terraform_remote_state.prereq.outputs.bucket["bucket"].id
   query_log_bucket_kms_key = data.terraform_remote_state.prereq.outputs.kms.keys[data.terraform_remote_state.prereq.outputs.id].arn
   zone_id                  = aws_route53_zone.this.zone_id

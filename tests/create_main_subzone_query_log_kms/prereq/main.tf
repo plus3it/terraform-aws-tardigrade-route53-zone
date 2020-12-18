@@ -1,11 +1,9 @@
-provider aws {
+provider "aws" {
   region = "us-east-1"
 }
 
 locals {
-  # this id cannot use a random_string resource id because the kms module uses
-  # for_each on the kms keys object
-  id = "tardigrade-test-r53-query-logs"
+  id = "tardigrade-test-r53-query-logs-${local.test_id}"
 
   keys = [
     {
@@ -35,15 +33,13 @@ module "kms" {
 }
 
 module "bucket" {
-  source = "git::https://github.com/plus3it/terraform-aws-tardigrade-s3-bucket.git?ref=2.0.0"
+  source = "git::https://github.com/plus3it/terraform-aws-tardigrade-s3-bucket.git?ref=4.2.0"
 
   providers = {
     aws = aws
   }
 
-  create_bucket = true
   bucket        = local.id
-  region        = data.aws_region.this.name
   force_destroy = true
   policy = templatefile(
     "${path.module}/templates/bucket-policy.json",
@@ -58,6 +54,26 @@ module "bucket" {
     kms_master_key_id = module.kms.keys[local.id].arn
     sse_algorithm     = "aws:kms"
   }]
+}
+
+locals {
+  random_id = substr(md5(data.null_data_source.id.random), 0, 8)
+
+  test_id = try(null_resource.id.triggers.id, local.random_id)
+}
+
+data "null_data_source" "id" {}
+
+resource "null_resource" "id" {
+  triggers = {
+    id = local.random_id
+  }
+
+  lifecycle {
+    ignore_changes = [
+      triggers,
+    ]
+  }
 }
 
 data "aws_caller_identity" "this" {}

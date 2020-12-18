@@ -17,7 +17,6 @@ No requirements.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| create\_route53\_zone | Controls whether to create the Route53 zone | `bool` | n/a | yes |
 | name | Name of the zone to create | `string` | n/a | yes |
 | tags | Map of tags to apply to the Route53 zone | `map(string)` | `{}` | no |
 
