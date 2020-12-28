@@ -1,8 +1,8 @@
-provider aws {
+provider "aws" {
   alias = "ns"
 }
 
-module delegation {
+module "delegation" {
   source = ".//modules/delegation"
   count  = var.create_route53_delegation ? 1 : 0
 
@@ -15,7 +15,7 @@ module delegation {
   ns_zone_id   = var.ns_zone_id
 }
 
-module query_log {
+module "query_log" {
   source = ".//modules/query-log"
   count  = var.create_route53_query_log ? 1 : 0
 
@@ -28,7 +28,7 @@ module query_log {
   zone_id                  = module.zone.id
 }
 
-module zone {
+module "zone" {
   source = ".//modules/zone"
 
   name = var.name

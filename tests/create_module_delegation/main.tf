@@ -1,8 +1,8 @@
-provider aws {
+provider "aws" {
   region = "us-east-1"
 }
 
-module delegation {
+module "delegation" {
   source = "../..//modules/delegation"
 
   providers = {
@@ -14,7 +14,7 @@ module delegation {
   ns_zone_id   = module.ns_zone.id
 }
 
-module sub_zone {
+module "sub_zone" {
   source = "../..//modules/zone"
 
   providers = {
@@ -28,7 +28,7 @@ module sub_zone {
   }
 }
 
-module ns_zone {
+module "ns_zone" {
   source = "../..//modules/zone"
 
   providers = {
@@ -42,14 +42,14 @@ module ns_zone {
   }
 }
 
-resource random_string ns_zone {
+resource "random_string" "ns_zone" {
   length  = 8
   upper   = false
   special = false
   number  = false
 }
 
-resource random_string sub_zone {
+resource "random_string" "sub_zone" {
   length  = 8
   upper   = false
   special = false
