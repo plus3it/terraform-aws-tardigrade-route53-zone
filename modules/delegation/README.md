@@ -5,13 +5,16 @@ Terraform module to create the NS delegation records for a Route53 sub-zone.
 <!-- BEGIN TFDOCS -->
 ## Requirements
 
-No requirements.
+| Name | Version |
+|------|---------|
+| terraform | >= 0.13 |
+| aws | >= 3.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| aws | n/a |
+| aws | >= 3.0 |
 
 ## Inputs
 

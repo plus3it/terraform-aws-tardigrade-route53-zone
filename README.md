@@ -16,6 +16,7 @@ simply pass the same provider to both `aws` and `aws.ns`.
 | Name | Version |
 |------|---------|
 | terraform | >= 0.13 |
+| aws | >= 3.0 |
 
 ## Providers
 
