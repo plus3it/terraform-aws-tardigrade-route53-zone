@@ -12,10 +12,6 @@ resource "random_string" "id" {
 module "zone" {
   source = "../..//modules/zone"
 
-  providers = {
-    aws = aws
-  }
-
   name = "${random_string.id.result}.com"
 
   tags = {

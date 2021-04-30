@@ -12,10 +12,6 @@ data "terraform_remote_state" "prereq" {
 module "query_log" {
   source = "../..//modules/query-log"
 
-  providers = {
-    aws = aws
-  }
-
   query_log_bucket = data.terraform_remote_state.prereq.outputs.bucket.id
   zone_id          = data.terraform_remote_state.prereq.outputs.route53_zone.id
 

@@ -5,10 +5,6 @@ provider "aws" {
 module "delegation" {
   source = "../..//modules/delegation"
 
-  providers = {
-    aws = aws
-  }
-
   name         = module.sub_zone.name
   name_servers = module.sub_zone.name_servers
   ns_zone_id   = module.ns_zone.id
@@ -16,10 +12,6 @@ module "delegation" {
 
 module "sub_zone" {
   source = "../..//modules/zone"
-
-  providers = {
-    aws = aws
-  }
 
   name = "${random_string.sub_zone.result}.${random_string.ns_zone.result}.com"
 
@@ -30,10 +22,6 @@ module "sub_zone" {
 
 module "ns_zone" {
   source = "../..//modules/zone"
-
-  providers = {
-    aws = aws
-  }
 
   name = "${random_string.ns_zone.result}.com"
 

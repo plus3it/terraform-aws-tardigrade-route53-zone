@@ -15,11 +15,11 @@
 .tardigrade-ci
 tardigrade-ci/
 
-# eclint
-.git/
-
 # terratest
 tests/go.*
 
 # os x
 .DS_Store
+
+# terraform lock file
+.terraform.lock.hcl
