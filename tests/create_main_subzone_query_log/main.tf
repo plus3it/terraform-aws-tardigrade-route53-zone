@@ -21,10 +21,6 @@ module "zone" {
 module "ns_zone" {
   source = "../..//modules/zone"
 
-  providers = {
-    aws = aws
-  }
-
   name = "${random_string.ns_zone.result}.com"
 
   tags = {
