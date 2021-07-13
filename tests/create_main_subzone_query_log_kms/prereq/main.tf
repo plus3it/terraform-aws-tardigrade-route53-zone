@@ -1,7 +1,3 @@
-provider "aws" {
-  region = "us-east-1"
-}
-
 locals {
   id = "tardigrade-test-r53-query-logs-${local.test_id}"
 
