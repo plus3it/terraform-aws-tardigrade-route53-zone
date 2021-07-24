@@ -22,7 +22,7 @@ locals {
 }
 
 module "kms" {
-  source = "git::https://github.com/plus3it/terraform-aws-tardigrade-kms.git?ref=0.0.2"
+  source = "git::https://github.com/plus3it/terraform-aws-tardigrade-kms.git?ref=2.0.0"
 
   create_keys = true
   keys        = local.keys
