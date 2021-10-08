@@ -4,6 +4,80 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+### 4.0.0
+
+**Released**: 2021.10.08
+
+**Commit Delta**: [Change from 3.0.1 release](https://github.com/plus3it/terraform-aws-tardigrade-route53-subzone/compare/3.0.1...4.0.0)
+
+**Summary**:
+
+*   Upgrade to terraform 0.15.x
+
+### 3.0.1
+
+**Released**: 2021.04.30
+
+**Commit Delta**: [Change from 3.0.0 release](https://github.com/plus3it/terraform-aws-tardigrade-route53-subzone/compare/3.0.0...3.0.1)
+
+**Summary**:
+
+*   Removes extraneous provider blocks from tests
+*   Add a required_providers block with a minimum version for the aws provider
+
+### 3.0.0
+
+**Released**: 2020.12.20
+
+**Commit Delta**: [Change from 2.0.0 release](https://github.com/plus3it/terraform-aws-tardigrade-route53-subzone/compare/2.0.0...3.0.0)
+
+**Summary**:
+
+*   Generates a stable random value from null_data_source and null_resource
+*   Increases timeout for tests
+*   Removes module-wide create/enable variables
+
+### 2.0.0
+
+**Released**: 2020.06.26
+
+**Commit Delta**: [Change from 1.1.1 release](https://github.com/plus3it/terraform-aws-tardigrade-route53-subzone/compare/1.1.1...2.0.0)
+
+**Summary**:
+
+*   Updates main module to use submodules for all use cases
+*   Adds test for delegation module and all main module use cases
+*   Rewrites test for route53 query log, zone creation, query log with kms
+*   Creates submodule for managing route53 query log
+*   Creates submodule for managing route53 delegation
+*   Creates submodule for managing route53 zone
+
+### 1.1.1
+
+**Released**: 2020.06.05
+
+**Commit Delta**: [Change from 1.1.0 release](https://github.com/plus3it/terraform-aws-tardigrade-route53-subzone/compare/1.1.0...1.1.1)
+
+**Summary**:
+
+*   Uses region instead of partion for ViaService value
+
+### 1.1.0
+
+**Released**: 2020.06.05
+
+**Commit Delta**: [Change from 1.0.2 release](https://github.com/plus3it/terraform-aws-tardigrade-route53-subzone/compare/1.0.2...1.1.0)
+
+**Summary**:
+
+*   Removes unnecessary decrypt permission
+*   Adds test for kms-encrypted bucket configs
+*   Supports query logging when bucket encryption is configured
+*   Updates testing framework''s search for terraform files
+*   Updates CI/CD files, including the use of tardigrade-ci
+*   Converts the Terraform-related _doc/MAIN.md files to README.md files
+*   Updates Terraform information in README.md to use format expected by tardigrade-ci''s use of terraform-docs
+
 ### 1.0.2
 
 **Released**: 2019.10.28
