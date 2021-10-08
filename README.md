@@ -10,12 +10,22 @@ delegation records. You must pass both the `aws` and `aws.ns` providers even
 if you are not using the subzone delegation option, in which case you can
 simply pass the same provider to both `aws` and `aws.ns`.
 
+## Testing
+
+At the moment, testing is manual:
+
+```
+# Replace "xxx" with an actual AWS profile, then execute the integration tests.
+export AWS_PROFILE=xxx 
+make terraform/pytest PYTEST_ARGS="-v --nomock"
+```
+
 <!-- BEGIN TFDOCS -->
 ## Requirements
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.13 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.15 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 3.0 |
 
 ## Providers

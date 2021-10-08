@@ -1,7 +1,3 @@
-provider "aws" {
-  region = "us-east-1"
-}
-
 locals {
   id = "tardigrade-test-r53-query-logs-${local.test_id}"
 
@@ -22,14 +18,13 @@ locals {
 }
 
 module "kms" {
-  source = "git::https://github.com/plus3it/terraform-aws-tardigrade-kms.git?ref=0.0.2"
+  source = "git::https://github.com/plus3it/terraform-aws-tardigrade-kms.git?ref=2.0.0"
 
-  create_keys = true
-  keys        = local.keys
+  keys = local.keys
 }
 
 module "bucket" {
-  source = "git::https://github.com/plus3it/terraform-aws-tardigrade-s3-bucket.git?ref=4.2.0"
+  source = "git::https://github.com/plus3it/terraform-aws-tardigrade-s3-bucket.git?ref=4.3.1"
 
   bucket        = local.id
   force_destroy = true

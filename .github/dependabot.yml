@@ -5,23 +5,18 @@ updates:
   schedule:
     interval: daily
   open-pull-requests-limit: 10
-- package-ecosystem: pip
-  directory: "/"
+- package-ecosystem: terraform
+  directory: "/tests/create_main_subzone_query_log_kms/prereq"
   schedule:
     interval: daily
   open-pull-requests-limit: 10
 - package-ecosystem: terraform
-  directory: "/tests/create_false"
+  directory: "/tests/create_module_query_log_kms/prereq"
   schedule:
     interval: daily
   open-pull-requests-limit: 10
 - package-ecosystem: terraform
-  directory: "/tests/create_route53_query_log"
-  schedule:
-    interval: daily
-  open-pull-requests-limit: 10
-- package-ecosystem: terraform
-  directory: "/tests/create_route53_subzone"
+  directory: "/tests/create_main_zone_query_log_kms/prereq"
   schedule:
     interval: daily
   open-pull-requests-limit: 10

@@ -1,7 +1,3 @@
-provider "aws" {
-  alias = "ns"
-}
-
 module "delegation" {
   source = ".//modules/delegation"
   count  = var.create_route53_delegation ? 1 : 0
