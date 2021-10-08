@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+### 2.0.0
+
+**Released**: 2021.10.08
+
+**Commit Delta**: [Change from 1.0.2 release](https://github.com/plus3it/terraform-aws-tardigrade-route53-subzone/compare/1.0.2...2.0.0)
+
+**Summary**:
+
+*   Upgrade to terraform 0.15.x
+
 ### 1.0.2
 
 **Released**: 2019.10.28
