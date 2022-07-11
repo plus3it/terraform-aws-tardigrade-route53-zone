@@ -18,7 +18,7 @@ resource "random_string" "id" {
   length  = 8
   upper   = false
   special = false
-  number  = false
+  numeric = false
 }
 
 data "terraform_remote_state" "prereq" {
