@@ -28,19 +28,21 @@ module "bucket" {
 
   bucket        = local.id
   force_destroy = true
-  policy = templatefile(
-    "${path.module}/templates/bucket-policy.json",
-    {
-      account_id = data.aws_caller_identity.this.account_id,
-      bucket     = local.id,
-      partition  = data.aws_partition.this.partition,
-    }
-  )
+  policy = {
+    json = templatefile(
+      "${path.module}/templates/bucket-policy.json",
+      {
+        account_id = data.aws_caller_identity.this.account_id,
+        bucket     = local.id,
+        partition  = data.aws_partition.this.partition,
+      }
+    )
 
-  server_side_encryption_configuration = [{
-    kms_master_key_id = module.kms.keys[local.id].arn
-    sse_algorithm     = "aws:kms"
-  }]
+    server_side_encryption_configuration = [{
+      kms_master_key_id = module.kms.keys[local.id].arn
+      sse_algorithm     = "aws:kms"
+    }]
+  }
 }
 
 locals {

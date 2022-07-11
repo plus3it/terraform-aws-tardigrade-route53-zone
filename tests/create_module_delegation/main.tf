@@ -30,12 +30,12 @@ resource "random_string" "ns_zone" {
   length  = 8
   upper   = false
   special = false
-  number  = false
+  numeric = false
 }
 
 resource "random_string" "sub_zone" {
   length  = 8
   upper   = false
   special = false
-  number  = false
+  numeric = false
 }
