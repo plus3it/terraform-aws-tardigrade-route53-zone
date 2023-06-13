@@ -29,4 +29,7 @@ module "zone" {
 
   name = var.name
   tags = var.tags
+  vpcs = var.vpcs
 }
+
+

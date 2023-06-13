@@ -51,8 +51,16 @@ variable "query_log_retention" {
   default     = 7
 }
 
+variable "vpcs" {
+  description = "List of objects of VPC IDs associate to the Private Hosted Zone. NOTE: At least one VPC object is required to create a Private Hosted Zone"
+  type = list(object({
+    vpc_id = string
+  }))
+  default = []
+}
 variable "tags" {
   description = "A map of tags to add to the Route53 zone and other resources"
   type        = map(string)
   default     = {}
 }
+

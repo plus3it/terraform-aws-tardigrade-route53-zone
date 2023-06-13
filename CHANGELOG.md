@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+
+### [4.1.0](https://github.com/plus3it/terraform-aws-tardigrade-route53-subzone/releases/tag/4.1.0)
+
+**Released**: 2023.06.20
+
+**Summary**:
+
+*   Add support for creating prizate zones, sub-zones, and cross account vpc association
+
 ### 4.0.0
 
 **Released**: 2021.10.08
