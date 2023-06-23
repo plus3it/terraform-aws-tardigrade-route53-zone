@@ -27,6 +27,7 @@ Terraform module to create a public Route53 zone.
 |------|-------------|------|---------|:--------:|
 | <a name="input_name"></a> [name](#input\_name) | Name of the zone to create | `string` | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | Map of tags to apply to the Route53 zone | `map(string)` | `{}` | no |
+| <a name="input_vpcs"></a> [vpcs](#input\_vpcs) | List of objects of VPC IDs associate to the Private Hosted Zone. NOTE: At least one VPC object is required to create a Private Hosted Zone | <pre>list(object({<br>    vpc_id = string<br>  }))</pre> | `[]` | no |
 
 ## Outputs
 
