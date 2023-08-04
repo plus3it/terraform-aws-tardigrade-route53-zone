@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
+### [4.1.1](https://github.com/plus3it/terraform-aws-tardigrade-route53-subzone/releases/tag/4.1.1)
+
+**Released**: 2023.08.04
+
+**Summary**:
+
+*   Uses lifecycle ignore_changes on the vpc to avoid removing vpcs associated in a separate config
+
 ### [4.1.0](https://github.com/plus3it/terraform-aws-tardigrade-route53-subzone/releases/tag/4.1.0)
 
 **Released**: 2023.06.20
