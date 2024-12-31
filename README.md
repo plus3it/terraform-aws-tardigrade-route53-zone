@@ -61,7 +61,7 @@ No resources.
 | <a name="input_query_log_bucket_kms_key"></a> [query\_log\_bucket\_kms\_key](#input\_query\_log\_bucket\_kms\_key) | ARN of the KMS Key ID or Alias associated with bucket encryption of `route53_query_log_bucket`. Required if bucket is encrypted and `iam_role_arn_firehose` is `null` | `string` | `null` | no |
 | <a name="input_query_log_retention"></a> [query\_log\_retention](#input\_query\_log\_retention) | Specifies the number of days you want to retain log events in the CloudWatch log group. | `number` | `7` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | A map of tags to add to the Route53 zone and other resources | `map(string)` | `{}` | no |
-| <a name="input_vpcs"></a> [vpcs](#input\_vpcs) | List of objects of VPC IDs associate to the Private Hosted Zone. NOTE: At least one VPC object is required to create a Private Hosted Zone | <pre>list(object({<br>    vpc_id = string<br>  }))</pre> | `[]` | no |
+| <a name="input_vpcs"></a> [vpcs](#input\_vpcs) | List of objects of VPC IDs associate to the Private Hosted Zone. NOTE: At least one VPC object is required to create a Private Hosted Zone | <pre>list(object({<br/>    vpc_id = string<br/>  }))</pre> | `[]` | no |
 
 ## Outputs
 
