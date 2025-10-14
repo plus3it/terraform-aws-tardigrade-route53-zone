@@ -51,6 +51,32 @@ variable "query_log_retention" {
   default     = 7
 }
 
+variable "records" {
+  description = "Map of Route53 records to create"
+  type = map(object({
+    name           = string
+    type           = string
+    ttl            = optional(number)
+    records        = optional(list(string))
+    set_identifier = optional(string)
+
+    weighted_routing_policy = optional(object({
+      weight = number
+    }))
+
+    alias = optional(object({
+      name                   = string
+      zone_id                = string
+      evaluate_target_health = optional(bool, true)
+    }))
+
+    failover_routing_policy = optional(object({
+      type = string
+    }))
+  }))
+  default = {}
+}
+
 variable "vpcs" {
   description = "List of objects of VPC IDs associate to the Private Hosted Zone. NOTE: At least one VPC object is required to create a Private Hosted Zone"
   type = list(object({

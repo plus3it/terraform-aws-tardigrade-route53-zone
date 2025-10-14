@@ -32,4 +32,12 @@ module "zone" {
   vpcs = var.vpcs
 }
 
+module "records" {
+  source = ".//modules/records"
+  count  = length(var.records) > 0 ? 1 : 0
+
+  zone_id = module.zone.id
+  records = var.records
+}
+
 
