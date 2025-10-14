@@ -1,4 +1,4 @@
-# terraform-aws-tardigrade-route53-zone//modules/records
+# terraform-aws-tardigrade-route53-zone//modules/record
 
 Terraform module to create records for a Route53 zone.
 
@@ -14,7 +14,7 @@ Terraform module to create records for a Route53 zone.
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.16.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 3.0 |
 
 ## Resources
 
