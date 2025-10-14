@@ -31,7 +31,7 @@ module "zone" {
 }
 
 module "vpc_association" {
-  source = "../..//modules/vpc_association"
+  source = "../../modules/vpc_association"
   providers = {
     aws           = aws
     aws.vpc_owner = aws.vpc_owner

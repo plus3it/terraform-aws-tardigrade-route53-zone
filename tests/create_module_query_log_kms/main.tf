@@ -1,5 +1,5 @@
 module "query_log" {
-  source = "../..//modules/query-log"
+  source = "../../modules/query-log"
 
   query_log_bucket         = data.terraform_remote_state.prereq.outputs.bucket["bucket"].id
   query_log_bucket_kms_key = data.terraform_remote_state.prereq.outputs.kms.keys[data.terraform_remote_state.prereq.outputs.id].arn

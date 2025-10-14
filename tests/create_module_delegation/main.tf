@@ -1,5 +1,5 @@
 module "delegation" {
-  source = "../..//modules/delegation"
+  source = "../../modules/delegation"
 
   name         = module.sub_zone.name
   name_servers = module.sub_zone.name_servers
@@ -7,7 +7,7 @@ module "delegation" {
 }
 
 module "sub_zone" {
-  source = "../..//modules/zone"
+  source = "../../modules/zone"
 
   name = "${random_string.sub_zone.result}.${random_string.ns_zone.result}.com"
 
@@ -17,7 +17,7 @@ module "sub_zone" {
 }
 
 module "ns_zone" {
-  source = "../..//modules/zone"
+  source = "../../modules/zone"
 
   name = "${random_string.ns_zone.result}.com"
 

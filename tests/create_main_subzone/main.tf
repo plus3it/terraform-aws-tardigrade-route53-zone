@@ -1,5 +1,5 @@
 module "zone" {
-  source = "../..//"
+  source = "../../"
 
   providers = {
     aws    = aws
@@ -13,7 +13,7 @@ module "zone" {
 }
 
 module "ns_zone" {
-  source = "../..//modules/zone"
+  source = "../../modules/zone"
 
   name = "${random_string.ns_zone.result}.com"
 
