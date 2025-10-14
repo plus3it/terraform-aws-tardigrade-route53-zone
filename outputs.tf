@@ -13,12 +13,12 @@ output "name_servers" {
   value       = length(module.zone) > 0 ? module.zone.name_servers : null
 }
 
-output "record_names" {
-  description = "Map of record names"
-  value       = try(module.records[0].record_names, null)
-}
-
-output "record_fqdns" {
-  description = "Map of record FQDNs"
-  value       = try(module.records[0].record_fqdns, null)
+output "records" {
+  description = "Map of created records with their details"
+  value = {
+    for k, v in module.record : k => {
+      name = v.name
+      fqdn = v.fqdn
+    }
+  }
 }

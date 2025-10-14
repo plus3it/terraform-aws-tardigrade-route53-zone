@@ -1,5 +1,5 @@
 module "delegation" {
-  source = ".//modules/delegation"
+  source = "./modules/delegation"
   count  = var.create_route53_delegation ? 1 : 0
 
   providers = {
@@ -12,7 +12,7 @@ module "delegation" {
 }
 
 module "query_log" {
-  source = ".//modules/query-log"
+  source = "./modules/query-log"
   count  = var.create_route53_query_log ? 1 : 0
 
   iam_role_arn_cloudwatch  = var.iam_role_arn_cloudwatch
@@ -25,19 +25,20 @@ module "query_log" {
 }
 
 module "zone" {
-  source = ".//modules/zone"
+  source = "./modules/zone"
 
   name = var.name
   tags = var.tags
   vpcs = var.vpcs
 }
 
-module "records" {
-  source = ".//modules/records"
-  count  = length(var.records) > 0 ? 1 : 0
+module "record" {
+  source   = "./modules/record"
+  for_each = var.records
 
-  zone_id = module.zone.id
-  records = var.records
+  record = merge(each.value, {
+    zone_id = coalesce(var.zone_id, module.zone.id)
+  })
 }
 
 

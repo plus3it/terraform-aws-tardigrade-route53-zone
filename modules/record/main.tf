@@ -1,23 +1,22 @@
 resource "aws_route53_record" "this" {
-  for_each = var.records
 
-  zone_id = var.zone_id
-  name    = each.value.name
-  type    = each.value.type
-  ttl     = each.value.ttl
-  records = each.value.records
+  zone_id = var.record.zone_id
+  name    = var.record.name
+  type    = var.record.type
+  ttl     = var.record.ttl
+  records = var.record.records
 
-  set_identifier = each.value.set_identifier
+  set_identifier = var.record.set_identifier
 
   dynamic "weighted_routing_policy" {
-    for_each = each.value.weighted_routing_policy != null ? [each.value.weighted_routing_policy] : []
+    for_each = var.record.weighted_routing_policy != null ? [var.record.weighted_routing_policy] : []
     content {
       weight = weighted_routing_policy.value.weight
     }
   }
 
   dynamic "alias" {
-    for_each = each.value.alias != null ? [each.value.alias] : []
+    for_each = var.record.alias != null ? [var.record.alias] : []
     content {
       name                   = alias.value.name
       zone_id                = alias.value.zone_id
@@ -26,7 +25,7 @@ resource "aws_route53_record" "this" {
   }
 
   dynamic "failover_routing_policy" {
-    for_each = each.value.failover_routing_policy != null ? [each.value.failover_routing_policy] : []
+    for_each = var.record.failover_routing_policy != null ? [var.record.failover_routing_policy] : []
     content {
       type = failover_routing_policy.value.type
     }

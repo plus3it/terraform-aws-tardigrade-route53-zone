@@ -63,6 +63,7 @@ No resources.
 | <a name="input_records"></a> [records](#input\_records) | Map of Route53 records to create | <pre>map(object({<br/>    name           = string<br/>    type           = string<br/>    ttl            = optional(number)<br/>    records        = optional(list(string))<br/>    set_identifier = optional(string)<br/><br/>    weighted_routing_policy = optional(object({<br/>      weight = number<br/>    }))<br/><br/>    alias = optional(object({<br/>      name                   = string<br/>      zone_id                = string<br/>      evaluate_target_health = optional(bool, true)<br/>    }))<br/><br/>    failover_routing_policy = optional(object({<br/>      type = string<br/>    }))<br/>  }))</pre> | `{}` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | A map of tags to add to the Route53 zone and other resources | `map(string)` | `{}` | no |
 | <a name="input_vpcs"></a> [vpcs](#input\_vpcs) | List of objects of VPC IDs associate to the Private Hosted Zone. NOTE: At least one VPC object is required to create a Private Hosted Zone | <pre>list(object({<br/>    vpc_id = string<br/>  }))</pre> | `[]` | no |
+| <a name="input_zone_id"></a> [zone\_id](#input\_zone\_id) | Existing zone ID to use instead of creating a new zone | `string` | `null` | no |
 
 ## Outputs
 
@@ -71,7 +72,6 @@ No resources.
 | <a name="output_id"></a> [id](#output\_id) | ID of the Route53 zone |
 | <a name="output_name"></a> [name](#output\_name) | Name of the Route53 zone |
 | <a name="output_name_servers"></a> [name\_servers](#output\_name\_servers) | List of name servers for the zone |
-| <a name="output_record_fqdns"></a> [record\_fqdns](#output\_record\_fqdns) | Map of record FQDNs |
-| <a name="output_record_names"></a> [record\_names](#output\_record\_names) | Map of record names |
+| <a name="output_records"></a> [records](#output\_records) | Map of created records with their details |
 
 <!-- END TFDOCS -->

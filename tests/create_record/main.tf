@@ -46,3 +46,7 @@ module "zone" {
 output "zone" {
   value = module.zone
 }
+
+output "records" {
+  value = module.zone.records
+}
