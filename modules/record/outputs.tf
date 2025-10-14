@@ -1,9 +1,4 @@
-output "name" {
-  description = "The name of the record"
-  value       = aws_route53_record.this.name
-}
-
-output "fqdn" {
-  description = "The FQDN built using zone domain and name"
-  value       = aws_route53_record.this.fqdn
+output "record" {
+  description = "Object of attributes for the Route53 Record"
+  value       = aws_route53_record.this
 }

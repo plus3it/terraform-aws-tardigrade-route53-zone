@@ -31,7 +31,6 @@ Terraform module to create records for a Route53 zone.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_fqdn"></a> [fqdn](#output\_fqdn) | The FQDN built using zone domain and name |
-| <a name="output_name"></a> [name](#output\_name) | The name of the record |
+| <a name="output_record"></a> [record](#output\_record) | Object of attributes for the Route53 Record |
 
 <!-- END TFDOCS -->

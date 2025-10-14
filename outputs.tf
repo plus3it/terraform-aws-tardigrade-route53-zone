@@ -15,10 +15,5 @@ output "name_servers" {
 
 output "records" {
   description = "Map of created records with their details"
-  value = {
-    for k, v in module.record : k => {
-      name = v.name
-      fqdn = v.fqdn
-    }
-  }
+  value       = module.record
 }

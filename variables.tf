@@ -89,9 +89,3 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
-
-variable "zone_id" {
-  description = "Existing zone ID to use instead of creating a new zone"
-  type        = string
-  default     = null
-}

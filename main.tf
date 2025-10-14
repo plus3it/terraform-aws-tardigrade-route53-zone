@@ -37,7 +37,7 @@ module "record" {
   for_each = var.records
 
   record = merge(each.value, {
-    zone_id = coalesce(var.zone_id, module.zone.id)
+    zone_id = module.zone.id
   })
 }
 
