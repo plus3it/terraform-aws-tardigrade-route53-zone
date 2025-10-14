@@ -6,7 +6,7 @@ resource "random_string" "id" {
 }
 
 module "zone" {
-  source = "../..//modules/zone"
+  source = "../../modules/zone"
 
   name = "${random_string.id.result}.com"
 

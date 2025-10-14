@@ -1,5 +1,5 @@
 module "zone" {
-  source = "../..//"
+  source = "../../"
 
   providers = {
     aws    = aws

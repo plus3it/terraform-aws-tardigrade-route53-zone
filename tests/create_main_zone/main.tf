@@ -6,7 +6,7 @@ resource "random_string" "id" {
 }
 
 module "zone" {
-  source = "../..//"
+  source = "../../"
 
   providers = {
     aws    = aws
