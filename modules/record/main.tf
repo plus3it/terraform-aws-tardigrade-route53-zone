@@ -6,7 +6,8 @@ resource "aws_route53_record" "this" {
   ttl     = var.record.ttl
   records = var.record.records
 
-  set_identifier = var.record.set_identifier
+  set_identifier  = var.record.set_identifier
+  health_check_id = var.record.health_check_id
 
   dynamic "weighted_routing_policy" {
     for_each = var.record.weighted_routing_policy != null ? [var.record.weighted_routing_policy] : []

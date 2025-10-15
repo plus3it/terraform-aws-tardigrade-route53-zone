@@ -25,7 +25,7 @@ Terraform module to create records for a Route53 zone.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_record"></a> [record](#input\_record) | Route53 record configuration | <pre>object({<br/>    zone_id = string<br/>    name    = string<br/>    type    = string<br/>    ttl     = optional(number)<br/>    records = optional(list(string))<br/><br/>    set_identifier = optional(string)<br/><br/>    weighted_routing_policy = optional(object({<br/>      weight = number<br/>    }))<br/><br/>    failover_routing_policy = optional(object({<br/>      type = string<br/>    }))<br/><br/>    alias = optional(object({<br/>      name                   = string<br/>      zone_id                = string<br/>      evaluate_target_health = optional(bool, false)<br/>    }))<br/><br/>    health_check_id = optional(string)<br/>  })</pre> | n/a | yes |
+| <a name="input_record"></a> [record](#input\_record) | Route53 record configuration | <pre>object({<br/>    zone_id = string<br/>    name    = string<br/>    type    = string<br/>    ttl     = optional(number)<br/>    records = optional(list(string))<br/><br/>    set_identifier  = optional(string)<br/>    health_check_id = optional(string)<br/><br/>    weighted_routing_policy = optional(object({<br/>      weight = number<br/>    }))<br/><br/>    failover_routing_policy = optional(object({<br/>      type = string<br/>    }))<br/><br/>    alias = optional(object({<br/>      name                   = string<br/>      zone_id                = string<br/>      evaluate_target_health = optional(bool, false)<br/>    }))<br/>  })</pre> | n/a | yes |
 
 ## Outputs
 

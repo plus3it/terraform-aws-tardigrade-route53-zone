@@ -5,6 +5,19 @@ resource "random_string" "id" {
   numeric = false
 }
 
+resource "aws_route53_health_check" "test" {
+  fqdn              = "example.com"
+  port              = 443
+  type              = "HTTPS"
+  resource_path     = "/health"
+  failure_threshold = 3
+  request_interval  = 30
+
+  tags = {
+    environment = "testing"
+  }
+}
+
 module "zone" {
   source = "../../"
 
@@ -34,6 +47,17 @@ module "zone" {
       set_identifier = "green"
       weighted_routing_policy = {
         weight = 0
+      }
+    }
+    "test_with_health_check" = {
+      name            = "api"
+      type            = "A"
+      ttl             = 300
+      records         = ["3.0.2.1"]
+      health_check_id = aws_route53_health_check.test.id
+      set_identifier  = "primary"
+      weighted_routing_policy = {
+        weight = 100
       }
     }
   }

@@ -73,6 +73,8 @@ variable "records" {
     failover_routing_policy = optional(object({
       type = string
     }))
+
+    health_check_id = optional(string)
   }))
   default = {}
 }
