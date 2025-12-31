@@ -147,7 +147,7 @@ data "aws_iam_policy_document" "firehose_kms" {
       variable = "kms:ViaService"
 
       values = [
-        "s3.${data.aws_region.current.name}.amazonaws.com"
+        "s3.${data.aws_region.current.region}.amazonaws.com"
       ]
     }
 
@@ -184,7 +184,7 @@ resource "aws_kinesis_firehose_delivery_stream" "this" {
   extended_s3_configuration {
     role_arn   = local.iam_role_arn_firehose
     bucket_arn = "arn:${data.aws_partition.current.partition}:s3:::${var.query_log_bucket}"
-    prefix     = "AWSLogs/${data.aws_caller_identity.current.account_id}/route53querylogs/${data.aws_region.current.name}/"
+    prefix     = "AWSLogs/${data.aws_caller_identity.current.account_id}/route53querylogs/${data.aws_region.current.region}/"
   }
 }
 
@@ -225,7 +225,7 @@ data "aws_iam_policy_document" "cloudwatch_assume_role" {
 
     principals {
       type        = "Service"
-      identifiers = ["logs.${data.aws_region.current.name}.amazonaws.com"]
+      identifiers = ["logs.${data.aws_region.current.region}.amazonaws.com"]
     }
   }
 }
