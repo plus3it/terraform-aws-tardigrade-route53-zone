@@ -54,6 +54,7 @@ No resources.
 | <a name="input_name"></a> [name](#input\_name) | Name of the zone | `string` | n/a | yes |
 | <a name="input_create_route53_delegation"></a> [create\_route53\_delegation](#input\_create\_route53\_delegation) | Controls whether to create Route53 delegation records in the `ns_zone_id`. Provider `aws.ns` is used to create the records | `bool` | `false` | no |
 | <a name="input_create_route53_query_log"></a> [create\_route53\_query\_log](#input\_create\_route53\_query\_log) | Controls whether to create a Route53 query log configuration | `bool` | `false` | no |
+| <a name="input_dnssec"></a> [dnssec](#input\_dnssec) | Configuration for Route53 DNSSEC | <pre>object({<br/>    enable = bool<br/><br/>    kms = optional(object({<br/>      create_key      = optional(bool, true)<br/>      key_arn         = optional(string)<br/>      key_alias       = optional(string)<br/>      deletion_window = optional(number, 7)<br/>    }), {})<br/><br/>    ksk_name       = optional(string, "ksk")<br/>    signing_status = optional(string, "SIGNING")<br/>  })</pre> | <pre>{<br/>  "enable": false<br/>}</pre> | no |
 | <a name="input_iam_role_arn_cloudwatch"></a> [iam\_role\_arn\_cloudwatch](#input\_iam\_role\_arn\_cloudwatch) | IAM Role ARN for Cloudwatch service permissions | `string` | `null` | no |
 | <a name="input_iam_role_arn_firehose"></a> [iam\_role\_arn\_firehose](#input\_iam\_role\_arn\_firehose) | IAM Role ARN for Firehose service permissions | `string` | `null` | no |
 | <a name="input_ns_zone_id"></a> [ns\_zone\_id](#input\_ns\_zone\_id) | Zone ID of the name server zone. Delegation records for the sub-zone will be created here. Provider `aws.ns` is used to create the records | `string` | `null` | no |
@@ -68,6 +69,7 @@ No resources.
 
 | Name | Description |
 |------|-------------|
+| <a name="output_dnssec"></a> [dnssec](#output\_dnssec) | DNSSEC configuration and status |
 | <a name="output_id"></a> [id](#output\_id) | ID of the Route53 zone |
 | <a name="output_name"></a> [name](#output\_name) | Name of the Route53 zone |
 | <a name="output_name_servers"></a> [name\_servers](#output\_name\_servers) | List of name servers for the zone |

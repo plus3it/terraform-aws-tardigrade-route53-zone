@@ -32,6 +32,20 @@ module "zone" {
   vpcs = var.vpcs
 }
 
+module "dnssec" {
+  source = "./modules/dnssec"
+  count  = var.dnssec.enable ? 1 : 0
+
+  zone_id                 = module.zone.id
+  create_kms_key          = var.dnssec.kms.create_key
+  kms_key_arn             = var.dnssec.kms.key_arn
+  kms_key_alias           = var.dnssec.kms.key_alias
+  kms_key_deletion_window = var.dnssec.kms.deletion_window
+  ksk_name                = var.dnssec.ksk_name
+  signing_status          = var.dnssec.signing_status
+  tags                    = var.tags
+}
+
 module "record" {
   source   = "./modules/record"
   for_each = var.records
@@ -40,5 +54,3 @@ module "record" {
     zone_id = module.zone.id
   })
 }
-
-

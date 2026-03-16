@@ -3,6 +3,11 @@ output "id" {
   value       = length(module.zone) > 0 ? module.zone.id : null
 }
 
+output "dnssec" {
+  description = "DNSSEC configuration and status"
+  value       = length(module.dnssec) > 0 ? module.dnssec[0] : null
+}
+
 output "name" {
   description = "Name of the Route53 zone"
   value       = length(module.zone) > 0 ? module.zone.name : null

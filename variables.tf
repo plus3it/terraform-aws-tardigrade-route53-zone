@@ -10,6 +10,26 @@ variable "create_route53_query_log" {
   default     = false
 }
 
+variable "dnssec" {
+  description = "Configuration for Route53 DNSSEC"
+  type = object({
+    enable = bool
+
+    kms = optional(object({
+      create_key      = optional(bool, true)
+      key_arn         = optional(string)
+      key_alias       = optional(string)
+      deletion_window = optional(number, 7)
+    }), {})
+
+    ksk_name       = optional(string, "ksk")
+    signing_status = optional(string, "SIGNING")
+  })
+  default = {
+    enable = false
+  }
+}
+
 variable "iam_role_arn_cloudwatch" {
   description = "IAM Role ARN for Cloudwatch service permissions"
   type        = string
@@ -86,6 +106,7 @@ variable "vpcs" {
   }))
   default = []
 }
+
 variable "tags" {
   description = "A map of tags to add to the Route53 zone and other resources"
   type        = map(string)
