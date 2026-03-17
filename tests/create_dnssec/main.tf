@@ -15,32 +15,18 @@ module "zone" {
 
   name = "${random_string.id.result}.com"
 
+  dnssec = {
+    ksk_name      = "${random_string.id.result}-ksk"
+    kms_key_alias = "route53-dnssec-${random_string.id.result}"
+  }
+
   tags = {
     Environment = "testing"
     Purpose     = "dnssec-test"
   }
 }
 
-module "dnssec" {
-  source = "../../modules/dnssec"
-
-  zone_id  = module.zone.id
-  ksk_name = "${random_string.id.result}-ksk"
-
-  create_kms_key = true
-  kms_key_alias  = "route53-dnssec-${random_string.id.result}"
-
-  tags = {
-    Environment = "testing"
-  }
-}
-
 output "zone" {
   description = "Test zone outputs"
   value       = module.zone
-}
-
-output "dnssec" {
-  description = "DNSSEC module outputs"
-  value       = module.dnssec
 }

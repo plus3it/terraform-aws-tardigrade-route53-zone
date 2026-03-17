@@ -1,3 +1,7 @@
+# terraform-aws-tardigrade-route53-zone//modules/dnssec
+
+Terraform module to configure DNSSEC for a Route53 Zone.
+
 <!-- BEGIN TFDOCS -->
 ## Requirements
 
@@ -24,14 +28,7 @@
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_ksk_name"></a> [ksk\_name](#input\_ksk\_name) | Name of the Key Signing Key (KSK). Must be unique within the hosted zone | `string` | n/a | yes |
-| <a name="input_zone_id"></a> [zone\_id](#input\_zone\_id) | ID of the Route53 hosted zone to enable DNSSEC on | `string` | n/a | yes |
-| <a name="input_create_kms_key"></a> [create\_kms\_key](#input\_create\_kms\_key) | Whether to create a new KMS key for DNSSEC signing. If false, kms\_key\_arn must be provided | `bool` | `true` | no |
-| <a name="input_kms_key_alias"></a> [kms\_key\_alias](#input\_kms\_key\_alias) | Alias for the KMS key. Only used if create\_kms\_key is true | `string` | `null` | no |
-| <a name="input_kms_key_arn"></a> [kms\_key\_arn](#input\_kms\_key\_arn) | ARN of existing KMS key for DNSSEC signing. Required if create\_kms\_key is false | `string` | `null` | no |
-| <a name="input_kms_key_deletion_window"></a> [kms\_key\_deletion\_window](#input\_kms\_key\_deletion\_window) | Duration in days after which the KMS key is deleted after destruction. Must be between 7 and 30 days | `number` | `30` | no |
-| <a name="input_signing_status"></a> [signing\_status](#input\_signing\_status) | DNSSEC signing status. Valid Values: 'SIGNING' or 'NOT\_SIGNING | `string` | `"SIGNING"` | no |
-| <a name="input_tags"></a> [tags](#input\_tags) | A map of tags to add to all resources | `map(string)` | `{}` | no |
+| <a name="input_dnssec"></a> [dnssec](#input\_dnssec) | Configuration for Route53 DNSSEC | <pre>object({<br/>    zone_id                 = string<br/>    kms_key_arn             = optional(string)<br/>    kms_key_alias           = optional(string)<br/>    kms_key_deletion_window = optional(number)<br/>    ksk_name                = string<br/>    signing_status          = optional(string)<br/>    tags                    = optional(map(string))<br/>  })</pre> | n/a | yes |
 
 ## Outputs
 

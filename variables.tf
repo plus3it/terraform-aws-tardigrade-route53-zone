@@ -13,21 +13,15 @@ variable "create_route53_query_log" {
 variable "dnssec" {
   description = "Configuration for Route53 DNSSEC"
   type = object({
-    enable = bool
-
-    kms = optional(object({
-      create_key      = optional(bool, true)
-      key_arn         = optional(string)
-      key_alias       = optional(string)
-      deletion_window = optional(number, 7)
-    }), {})
-
-    ksk_name       = optional(string, "ksk")
-    signing_status = optional(string, "SIGNING")
+    zone_id                 = optional(string)
+    kms_key_arn             = optional(string)
+    kms_key_alias           = optional(string)
+    kms_key_deletion_window = optional(number, 7)
+    ksk_name                = string
+    signing_status          = optional(string, "SIGNING")
+    tags                    = optional(map(string))
   })
-  default = {
-    enable = false
-  }
+  default = null
 }
 
 variable "iam_role_arn_cloudwatch" {

@@ -5,7 +5,7 @@ output "id" {
 
 output "dnssec" {
   description = "DNSSEC configuration and status"
-  value       = length(module.dnssec) > 0 ? module.dnssec[0] : null
+  value       = var.dnssec != null ? module.dnssec[0] : null
 }
 
 output "name" {

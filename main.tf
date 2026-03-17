@@ -34,16 +34,17 @@ module "zone" {
 
 module "dnssec" {
   source = "./modules/dnssec"
-  count  = var.dnssec.enable ? 1 : 0
+  count  = var.dnssec != null ? 1 : 0
 
-  zone_id                 = module.zone.id
-  create_kms_key          = var.dnssec.kms.create_key
-  kms_key_arn             = var.dnssec.kms.key_arn
-  kms_key_alias           = var.dnssec.kms.key_alias
-  kms_key_deletion_window = var.dnssec.kms.deletion_window
-  ksk_name                = var.dnssec.ksk_name
-  signing_status          = var.dnssec.signing_status
-  tags                    = var.tags
+  dnssec = {
+    zone_id                 = module.zone.id
+    kms_key_arn             = var.dnssec.kms_key_arn
+    kms_key_alias           = var.dnssec.kms_key_alias
+    kms_key_deletion_window = var.dnssec.kms_key_deletion_window
+    ksk_name                = var.dnssec.ksk_name
+    signing_status          = var.dnssec.signing_status
+    tags                    = var.dnssec.tags
+  }
 }
 
 module "record" {

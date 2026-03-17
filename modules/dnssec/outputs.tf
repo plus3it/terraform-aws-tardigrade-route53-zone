@@ -1,6 +1,6 @@
 output "kms_key_arn" {
   description = "ARN of the KMS key used for DNSSEC signing"
-  value       = var.create_kms_key ? aws_kms_key.this[0].arn : var.kms_key_arn
+  value       = var.dnssec.kms_key_arn == null ? aws_kms_key.this[0].arn : null
 }
 
 output "key_signing_key_id" {
