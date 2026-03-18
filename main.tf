@@ -36,15 +36,12 @@ module "dnssec" {
   source = "./modules/dnssec"
   count  = var.dnssec != null ? 1 : 0
 
-  dnssec = {
-    zone_id                 = module.zone.id
-    kms_key_arn             = var.dnssec.kms_key_arn
-    kms_key_alias           = var.dnssec.kms_key_alias
-    kms_key_deletion_window = var.dnssec.kms_key_deletion_window
-    ksk_name                = var.dnssec.ksk_name
-    signing_status          = var.dnssec.signing_status
-    tags                    = var.dnssec.tags
-  }
+  dnssec = merge(
+    {
+      zone_id = module.zone.id
+    },
+    var.dnssec
+  )
 }
 
 module "record" {

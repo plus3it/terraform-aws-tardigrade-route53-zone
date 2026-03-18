@@ -13,7 +13,6 @@ variable "create_route53_query_log" {
 variable "dnssec" {
   description = "Configuration for Route53 DNSSEC"
   type = object({
-    zone_id                 = optional(string)
     kms_key_arn             = optional(string)
     kms_key_alias           = optional(string)
     kms_key_deletion_window = optional(number, 7)

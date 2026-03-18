@@ -84,10 +84,6 @@ resource "aws_route53_key_signing_key" "this" {
 }
 
 resource "aws_route53_hosted_zone_dnssec" "this" {
-  hosted_zone_id = var.dnssec.zone_id
+  hosted_zone_id = aws_route53_key_signing_key.this.hosted_zone_id
   signing_status = var.dnssec.signing_status
-
-  depends_on = [
-    aws_route53_key_signing_key.this
-  ]
 }
