@@ -32,6 +32,18 @@ module "zone" {
   vpcs = var.vpcs
 }
 
+module "dnssec" {
+  source = "./modules/dnssec"
+  count  = var.dnssec != null ? 1 : 0
+
+  dnssec = merge(
+    {
+      zone_id = module.zone.id
+    },
+    var.dnssec
+  )
+}
+
 module "record" {
   source   = "./modules/record"
   for_each = var.records
@@ -40,5 +52,3 @@ module "record" {
     zone_id = module.zone.id
   })
 }
-
-
